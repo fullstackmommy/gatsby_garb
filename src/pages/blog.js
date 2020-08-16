@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql, useStaticQuery, Link } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 import Layout from "../components/layout"
 
 const getMarkdownPosts = graphql`
@@ -8,6 +8,9 @@ const getMarkdownPosts = graphql`
       totalCount
       edges {
         node {
+          fields {
+            slug
+          }
           id
           frontmatter {
             title
