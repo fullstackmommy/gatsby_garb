@@ -1,11 +1,50 @@
 import React from "react"
-import { Link } from "gatsby"
+import { graphql, useStaticQuery, Link } from "gatsby"
 
 import Layout from "../../components/layout"
 
-export default () => (
-  <Layout>
-    <h1>Hello from page 3</h1>
-    <Link to="/page-2">Go to page 2</Link>
-  </Layout>
-)
+const getImageData = graphql`
+  {
+    allFile {
+      edges {
+        node {
+          relativePath
+          size
+          extension
+          birthTime
+        }
+      }
+    }
+  }
+`
+export default () => {
+  const data = useStaticQuery(getImageData)
+
+  return (
+    <Layout>
+      <h1>Hello from Page 3</h1>
+      <h3>Image Data</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Relative Path</th>
+            <th>Image Size</th>
+            <th>Extension</th>
+            <th>Birthtime</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.allFile.edges.map(({ node }, index) => (
+            <tr key={index}>
+              <td>{node.relativePath}</td>
+              <td>{node.size}</td>
+              <td>{node.extension}</td>
+              <td>{node.birthtime}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <Link to="/page-2">Go to page 2</Link>
+    </Layout>
+  )
+}
