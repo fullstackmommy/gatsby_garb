@@ -58,7 +58,11 @@ export default ({ data, pageContext }) => {
 
 export const query = graphql`
   query($skip: Int!, $limit: Int!) {
-    allMarkdownRemark(skip: $skip, limit: $limit) {
+    allMarkdownRemark(
+      skip: $skip
+      limit: $limit
+      sort: { order: DESC, fields: [frontmatter___date] }
+    ) {
       totalCount
       edges {
         node {
