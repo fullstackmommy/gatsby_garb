@@ -3,7 +3,7 @@ import { graphql, Link } from "gatsby"
 import Layout from "../components/layout"
 
 export default ({ data, pageContext }) => {
-  const { currentPage, isFirstPage, isLastPage } = pageContext
+  const { currentPage, isFirstPage, isLastPage, totalPages } = pageContext
   const nextPage = `/blog/${String(currentPage + 1)}`
   const prevPage =
     currentPage - 1 === 1 ? "/blog" : `/blog/${String(currentPage - 1)}`
@@ -26,12 +26,25 @@ export default ({ data, pageContext }) => {
             <p>{node.excerpt}</p>
           </div>
         ))}
-        <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+            maxWidth: 300,
+            margin: "0 auto",
+          }}
+        >
           {!isFirstPage && (
             <Link to={prevPage} rel="prev">
               Prev Page
             </Link>
           )}
+          {Array.from({ length: totalPages }, (_, index) => (
+            <Link key={index} to={`/blog/${index === 0 ? "" : index + 1}`}>
+              {index + 1}
+            </Link>
+          ))}
           {!isLastPage && (
             <Link to={nextPage} rel="next">
               Next Page
