@@ -4,3 +4,5 @@ date: "2020-08-16"
 ---
 
 This is the second post using Markdown!
+
+![Forest](forest.jpg)
