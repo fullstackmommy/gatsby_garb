@@ -74,7 +74,7 @@ export const query = graphql`
             title
             date(formatString: "dddd, MMMM Do YYYY", locale: "us")
           }
-          excerpt
+          excerpt(pruneLength: 25)
         }
       }
     }
